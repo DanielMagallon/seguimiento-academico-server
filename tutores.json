@@ -1,0 +1,13 @@
+[
+   {"nrocontrol":"13420001","nombre":"Othoniel","apellido1":"Rivera","apellido2":"Mendez","idcarrera":1},
+   {"nrocontrol":"13420002","nombre":"Dalet","apellido1":"Villanueva","apellido2":"Mascort","idcarrera":1},
+   {"nrocontrol":"13420003","nombre":"Leonardo","apellido1":"Martinez","apellido2":"Gonzalez","idcarrera":1},
+
+   {"nrocontrol":"13420201","nombre":"Pedro","apellido1":"Parker","apellido2":"Garcia","idcarrera":2},
+   {"nrocontrol":"14420002","nombre":"Antonio","apellido1":"Stark","apellido2":"Gil","idcarrera":2},
+   {"nrocontrol":"12420003","nombre":"Luis Miguel","apellido1":"Fernandez","apellido2":"Aguilar","idcarrera":2},
+
+   {"nrocontrol":"11420201","nombre":"Vicente","apellido1":"Fernandez","apellido2":"Figueroa","idcarrera":3},
+   {"nrocontrol":"11420202","nombre":"Elon","apellido1":"Musk","apellido2":"Magallon","idcarrera":3},
+   {"nrocontrol":"12420103","nombre":"Mark","apellido1":"Zucaritas","apellido2":"Villanueva","idcarrera":3}
+]

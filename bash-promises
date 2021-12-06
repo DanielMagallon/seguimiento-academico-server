@@ -1,0 +1,21 @@
+#! /usr/bin/env bash
+
+host='localhost'
+select i in "a)Consulta  los alumnos" "b)Consulta  los grupos" "c)Consultar grupo-tutores" "d)Consultar tutores"\
+	    "e)Consultar materias" "f)Consultar alumnos-materias"; do 
+   case "$i" in
+      "a)"*)
+	 
+         ;;
+      "b)"*)
+         ;;
+      "c)"*)
+         ;;
+      "d)"*)
+         ;;
+      "e)"*)
+         ;;
+      "f)"*)
+         ;;
+   esac
+done

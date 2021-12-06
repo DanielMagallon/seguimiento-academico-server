@@ -1,0 +1,32 @@
+[
+   {"codigo_materia":"SADG-20","nombre":"Tutorias","creditos":1},
+   {"codigo_materia":"SADG-21","nombre":"Fisica","creditos":4},
+   {"codigo_materia":"SADG-22","nombre":"Contabilidad","creditos":4},
+   {"codigo_materia":"SADG-23","nombre":"Etica","creditos":4},
+   {"codigo_materia":"SADG-25","nombre":"Desarrollo Sustentable","creditos":4},
+   {"codigo_materia":"SADG-26","nombre":"Calculo Diferencial","creditos":4},
+   {"codigo_materia":"SADG-27","nombre":"Calculo Integral","creditos":4},
+   {"codigo_materia":"SADG-28","nombre":"Calculo Vectorial","creditos":4},
+   {"codigo_materia":"SADG-29","nombre":"Algebra Lineal","creditos":4},
+   {"codigo_materia":"SADG-24","nombre":"Metodos numericos","creditos":4},
+   {"codigo_materia":"SADG-24","nombre":"Ecuaciones Diferenciales","creditos":4},
+
+   {"codigo_materia":"SAIS-100","nombre":"Estructura de Datos","creditos":5},
+   {"codigo_materia":"SAIS-101","nombre":"Poo","creditos":5},
+   {"codigo_materia":"SAIS-102","nombre":"Fundamentos programacion","creditos":5},
+   {"codigo_materia":"SAIS-103","nombre":"Fundamentos elecomunicaciones","creditos":4},
+   {"codigo_materia":"SAIS-104","nombre":"Admin. Redes","creditos":4},
+
+
+   {"codigo_materia":"SABI-200","nombre":"Soluciones","creditos":5},
+   {"codigo_materia":"SABI-201","nombre":"Postres","creditos":5},
+   {"codigo_materia":"SABI-202","nombre":"Analisis quimico","creditos":5},
+   {"codigo_materia":"SABI-203","nombre":"Fundamentos bioquimica","creditos":4},
+   {"codigo_materia":"SABI-204","nombre":"Lab. clinico","creditos":4},   
+
+   {"codigo_materia":"SACO-300","nombre":"Finanzas","creditos":5},
+   {"codigo_materia":"SACO-301","nombre":"Evacion impuestos","creditos":5},
+   {"codigo_materia":"SACO-302","nombre":"El SAT","creditos":5},
+   {"codigo_materia":"SACO-303","nombre":"Contabilidad 1","creditos":4},
+   {"codigo_materia":"SACO-304","nombre":"Acciones","creditos":4}
+]
