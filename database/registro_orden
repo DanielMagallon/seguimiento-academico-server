@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+
+tables=("materias" "carreras" "tutores" "grupos" "alumnos" "alumnos_materias")
+
+for table in "${tables[@]}"; do
+   read -n1 -p "Do you want to insert in table $table? (y|Y) " r;echo
+   if [[ $r =~ y|Y ]];then
+      echo "Inserting values in table $table?"
+      curl  -H "Content-Type: application/json"  --data @./"$table".json  -v http://192.168.1.71:5800/"$table"/multiregistro
+   fi
+   echo -e "\n\n"
+   read -sn1 -p "Press any key to continue";echo
+done
+

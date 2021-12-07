@@ -1,0 +1,56 @@
+[
+   {"nombre":"Edgar Daniel","apellido1": "Magallon","apellido2":"Villanueva","idgrupo": 2,"nrocontrol":"17420571"},
+   {"nombre":"Luis Jose","apellido1": "Ixta","apellido2":"Zamudio","idgrupo": 2,"nrocontrol":"17420565"},
+   {"nombre":"Javier","apellido1": "Ayala","apellido2":"Chabelo","idgrupo": 2,"nrocontrol":"17420575"},
+   {"nombre":"Andre","apellido1": "Mugia","apellido2":"Jafet","idgrupo": 2,"nrocontrol":"17420578"},
+   {"nombre":"Jose Juan","apellido1": "Rangel","apellido2":"Bolanos","idgrupo": 2,"nrocontrol":"17420579"},
+   {"nombre":"Efrain","apellido1": "Tovar","apellido2":"Meza","idgrupo": 2,"nrocontrol":"17420580"},
+   {"nombre":"Alejandro","apellido1": "Hernandez","apellido2":"Ortega","idgrupo": 2,"nrocontrol":"17420581"},
+   {"nombre":"Jose Antonio","apellido1": "Toro","apellido2":"Padilla","idgrupo": 2,"nrocontrol":"17420583"},
+
+   {"nombre":"Jose Eduardo","apellido1": "Poo","apellido2":"Tapia","idgrupo": 1,"nrocontrol":"17420600"},
+   {"nombre":"Andrei","apellido1": "Rivera","apellido2":"Arroyo","idgrupo": 1,"nrocontrol":"17420572"},
+   {"nombre":"Julio","apellido1": "Campos","apellido2":"Ochoa","idgrupo": 1,"nrocontrol":"17420574"},
+   {"nombre":"Bryant","apellido1": "Robles","apellido2":"Oregel","idgrupo": 1,"nrocontrol":"17420576"},
+   {"nombre":"Daniel Alejandro","apellido1": "Magallon","apellido2":"Contreras","idgrupo": 1,"nrocontrol":"17420585"},
+   {"nombre":"Roxana","apellido1": "Ibeth","apellido2":"Nunez","idgrupo": 1,"nrocontrol":"17420586"},
+   
+
+
+   {"nombre":"Jesus","apellido1": "Bautista","apellido2":"Torres","idgrupo": 3,"nrocontrol":"17420573"},
+   {"nombre":"Jaime Daniel","apellido1": "Girarte","apellido2":"Gonzalez","idgrupo": 3,"nrocontrol":"17420552"},
+   {"nombre":"Cesar Alejandro","apellido1": "Ochoa","apellido2":"Cardenas","idgrupo": 3,"nrocontrol":"17420577"},
+   {"nombre":"Edgar Ivan","apellido1": "Blas","apellido2":"Pena","idgrupo": 3,"nrocontrol":"17420582"},
+   {"nombre":"Juan Pablo","apellido1": "Valencia","apellido2":"Hetfield","idgrupo": 3,"nrocontrol":"17420584"},
+   {"nombre":"Alejandra","apellido1": "Vega","apellido2":"Lopez","idgrupo": 3,"nrocontrol":"17420587"},
+   
+
+
+   {"nombre":"Priscila","apellido1": "Cortez","apellido2":"Hernandez","idgrupo": 4,"nrocontrol":"19420500"},
+   {"nombre":"Eugenio","apellido1": "Derbez","apellido2":"Peluche","idgrupo": 4,"nrocontrol":"19420501"},
+   {"nombre":"Benito","apellido1": "Juarez","apellido2":"Magallon","idgrupo": 4,"nrocontrol":"19420502"},
+   {"nombre":"Luis","apellido1": "Damian","apellido2":"Hernandez","idgrupo": 4,"nrocontrol":"19420503"},
+
+   {"nombre":"Charlie","apellido1": "Chaplin","apellido2":"Ochoa","idgrupo": 5,"nrocontrol":"19420504"},
+   {"nombre":"Alfonso","apellido1": "Magallon","apellido2":"Montes","idgrupo": 5,"nrocontrol":"19420505"},
+   {"nombre":"Ricardo","apellido1": "Granados","apellido2":"Aguilar","idgrupo": 5,"nrocontrol":"19420506"},
+
+   {"nombre":"Hanna","apellido1": "Mendez","apellido2":"Avalos","idgrupo": 6,"nrocontrol":"19420507"},
+   {"nombre":"Abril","apellido1": "Montes","apellido2":"Mejia","idgrupo": 6,"nrocontrol":"19420508"},
+   {"nombre":"James","apellido1": "Shadow","apellido2":"Hetfield","idgrupo": 6,"nrocontrol":"19420509"},
+
+
+
+   {"nombre":"Diego","apellido1": "Santiilan","apellido2":"Jimenez","idgrupo": 7,"nrocontrol":"18420600"},
+   {"nombre":"Erick","apellido1": "Villanueva","apellido2":"Magallon","idgrupo": 7,"nrocontrol":"18420601"},
+   {"nombre":"Roberto","apellido1": "Maldonado","apellido2":"Mendoza","idgrupo": 7,"nrocontrol":"18420602"},
+   {"nombre":"Irving","apellido1": "Sanchez","apellido2":"Sanchez","idgrupo": 7,"nrocontrol":"18420603"},
+
+   {"nombre":"Marco","apellido1": "Ravelo","apellido2":"Murguia","idgrupo": 8,"nrocontrol":"18420604"},
+   {"nombre":"Saul","apellido1": "Gonzalez","apellido2":"Montes","idgrupo": 8,"nrocontrol":"18420605"},
+   {"nombre":"Barbie","apellido1": "Nunez","apellido2":"de Magallon","idgrupo": 8,"nrocontrol":"18420606"},
+
+   {"nombre":"Yarely","apellido1": "Villa","apellido2":"Flores","idgrupo": 9,"nrocontrol":"18420607"},
+   {"nombre":"Adrian","apellido1": "Ceja","apellido2":"Renteria","idgrupo": 9,"nrocontrol":"18420608"},
+   {"nombre":"Raul","apellido1": "Arceo","apellido2":"Melgoza","idgrupo": 9,"nrocontrol":"18420609"}
+]

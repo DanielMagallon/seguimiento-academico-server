@@ -1,0 +1,10 @@
+#Para consultas profesores:
+   1) Extrear el grupo (activo) al que dicho tutor se esta encargado actualmente:
+      select idgrupo,nombre,cicloescolar,idcarrera from grupos where nrocontrol_tutor='$nrocontrol_tutor' and activo;
+   2) extraer los alumnos del grupo al que actualmente esta dando la clase:
+      select nrocontrol,nombre,apellido1,apellido2 from alumnos where idgrupo=$idgrupo;
+   3) extraer por cada alumno la materia que esta cursando actualmente (la que esta activa)
+      select materias.nombre,calificacion,oportunidad,asesoria  from alumnos_materias inner join 
+	 materias on materias.codigo_materia=alumnos_materias.codigo_materia where activo and nrocontrol='$nrocontrol_alumno';
+
+      

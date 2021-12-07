@@ -1,0 +1,7 @@
+#!/bin/bash
+
+project_dir="$(dirname $0)"
+cd $project_dir
+source venv/bin/activate
+export PYTHONPATH=$(pwd)
+python3 src/Server.py

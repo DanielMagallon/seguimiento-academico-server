@@ -1,0 +1,14 @@
+[
+   {"nombre":"A-01","nrocontrol_tutor":"13420001","cicloescolar":"2017","idcarrera":1},
+   {"nombre":"B-01","nrocontrol_tutor":"13420002","cicloescolar":"2017","idcarrera":1},
+   {"nombre":"C-01","nrocontrol_tutor":"13420003","cicloescolar":"2017","idcarrera":1},
+
+   {"nombre":"A-02","nrocontrol_tutor":"13420201","cicloescolar":"2019","idcarrera":2},
+   {"nombre":"B-02","nrocontrol_tutor":"14420002","cicloescolar":"2019","idcarrera":2},
+   {"nombre":"C-02","nrocontrol_tutor":"12420003","cicloescolar":"2019","idcarrera":2},
+
+
+   {"nombre":"A-10","nrocontrol_tutor":"11420201","cicloescolar":"2018","idcarrera":3},
+   {"nombre":"B-20","nrocontrol_tutor":"11420202","cicloescolar":"2018","idcarrera":3},
+   {"nombre":"C-30","nrocontrol_tutor":"12420103","cicloescolar":"2018","idcarrera":3}
+]
