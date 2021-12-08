@@ -103,10 +103,12 @@ Seccion alumnos
 '''
 
 
-@app.route('/alumnos/consulta/all', methods=['POST', 'GET'])
+@app.route('/alumnos/consulta/bygrupo', methods=['POST', 'GET'])
 @cross_origin(origin='*', headers=['Content-Type'])
 def alumnos_consulta_all():
-    return Response(consulta_general_alumnos())
+    data = request.get_json()
+    idgrupo = data['idgrupo']
+    return Response(consulta_general_alumnos(idgrupo))
 
 
 @app.route('/alumnos/registro', methods=['POST'])
@@ -234,7 +236,7 @@ Seccion alumno-materias
 @app.route('/alumno-materias/consulta/all', methods=['POST', 'GET'])
 @cross_origin(origin='*', headers=['Content-Type'])
 def materia_alumnos_consulta_all():
-    return Response(consulta_general_alumno_materia())
+    return Response("")
 
 
 @app.route('/alumno-materias/registro', methods=['POST'])
@@ -264,6 +266,17 @@ def materias_alumnos_multiregistro():
 '''
 Fin seccion alumno-materias
 '''
+
+'''Seccion Consultas-Altas Tutor'''
+
+
+@app.route("/consulta-tutor",methods=["GET","POST"])
+def consulta_tutor():
+    data = request.get_json()
+    nrocontrol_tutor = data['nrocontrol_tutor']
+    return Response(consulta_pagina_tutores(nrocontrol_tutor))
+
+'''Fin Seccion'''
 
 if __name__ == '__main__':
     print("Running flask server")

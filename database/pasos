@@ -1,10 +1,93 @@
 #Para consultas profesores:
-   1) Extrear el grupo (activo) al que dicho tutor se esta encargado actualmente:
-      select idgrupo,nombre,cicloescolar,idcarrera from grupos where nrocontrol_tutor='$nrocontrol_tutor' and activo;
+   1) Extrear el grupo (activo) (informacion del carrera, como su nombre,id,totla_credito) al que dicho tutor se esta encargado actualmente:
+      
+      select idgrupo,grupos.nombre,cicloescolar,grupos.idcarrera,carreras.nombre,carreras.total_creditos from grupos
+ 		inner join carreras on carreras.idcarrera=grupos.idcarrera
+		where nrocontrol_tutor='$nrocontrol_tutor' and activo;
+   
+      1.1) Total de alumnos en el grupo:
+            select count(1) from alumnos where idgrupo=$idgrupo
+
+
    2) extraer los alumnos del grupo al que actualmente esta dando la clase:
       select nrocontrol,nombre,apellido1,apellido2 from alumnos where idgrupo=$idgrupo;
+
+
    3) extraer por cada alumno la materia que esta cursando actualmente (la que esta activa)
       select materias.nombre,calificacion,oportunidad,asesoria  from alumnos_materias inner join 
 	 materias on materias.codigo_materia=alumnos_materias.codigo_materia where activo and nrocontrol='$nrocontrol_alumno';
 
+
+
+   //Aqui seguir con las consultas en python:
+
+   a)Total de materias aprobadas:
+      select count(*) from alumnos_materias where nrocontrol='$nrocontrol_alumno' and calificacion>=$calificacion_aprobatoria;
+
+   a.1)Total materias aprobadas en el semestre
+      select count(*) from alumnos_materias where nrocontrol='$nrocontrol_alumno' and calificacion>=$calificacion_aprobatoria and activo;
+
+   b)Total de materias reprobadas del semestre:
+      select count(*) from alumnos_materias where nrocontrol='$nrocontrol_alumno' and calificacion<$calificacion_aprobatoria and activo;
+      en python:
+	       Si reprobo al menos una, la situacion es iiregular, else, regular.
+
+
+   c)Calcular promedio curso actual por alumno
+      select avg(calificacion) from alumnos_materias where activo and nrocontrol='$nrocontrol_alumno';
+
+
+
+   d)Creditos no aprobados semestre:
+      select  sum(materias.creditos) from alumnos_materias 
+		inner join materias on materias.codigo_materia=alumnos_materias.codigo_materia 
+		where nrocontrol='$nrocontrol_alumno' and activo
+		and calificacion<$calificacion_aprobatoria
+
+   f)Creditos reinscrpcion (aprobados del semstre)
+      
+      select  sum(materias.creditos) from alumnos_materias 
+		inner join materias on materias.codigo_materia=alumnos_materias.codigo_materia 
+		where nrocontrol='$nrocontrol_alumno' and activo
+		and calificacion>=$calificacion_aprobatoria
+      
+
+   e)Creditos acumulados totales:
+      select  sum(materias.creditos) from alumnos_materias 
+		inner join materias on materias.codigo_materia=alumnos_materias.codigo_materia 
+		where nrocontrol='$nrocontrol_alumno' and calificacion>=$calificacion_aprobatoria
+   
+
+   f) Extrear cantidad de materias que estan en especial (3 oprtunidad) del semestre actual:
+	 select count(1) from alumnos_materias where oportunidad=3 and activo;  
+
+//aqui es independiente del alumno
+   1)Obtener el promedio grupal de una materia:
+      Obtener primero el id del grupo (activo)
+      En la tabla alumnos_materias filtrar los los alumnos que pertenecen a ese grupo:
+	 select * from alumnos_materias inner join alumnos on alumnos.nrocontrol=alumnos_materias.nrocontrol where alumnos.idgrupo=$idgrupo
+
+      Sacar el promedio grupal de cada materia que hay en comun por los alumnos:
+	 select materias.nombre,alumnos_materias.codigo_materia ,avg(calificacion) from alumnos_materias 
+		inner join alumnos 
+		on alumnos.nrocontrol=alumnos_materias.nrocontrol
+		inner join materias
+		on materias.codigo_materia=alumnos_materias.codigo_materia
+		where alumnos.idgrupo=2 
+		group by alumnos_materias.codigo_materia, materias.nombre ;		
+
+
+   h)Obtener:
+      Ttoal de alumnos.
+      Obtener cantidad de materis que tomo dicho usuario en actual semestre
+	 select count(1) from alumnos_materias where activo and nrocontrol='$nrocontrol_alumno'
+      Cantidad de Alumnos con total de materias aprobadas
+      Alumnos con 1 materia reprobada
+      Alumnos con 2 materias reprobadas
+      Alumnos con n materias reprobadas
+
+
+      
+      
+      
       

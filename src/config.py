@@ -1,0 +1,4 @@
+CALIFICACION_APROBATORIA=70
+TABLE_FIELDS='tables_fields'
+FIELD_VALUES='field_values'
+CUSTOM_SELECT='custom_select'
