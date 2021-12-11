@@ -1,5 +1,7 @@
-from src.Manager import wrapper_insert,wrapper_custom_query,session,cursor
+import json
+from src.Manager import wrapper_insert,wrapper_custom_query,wrapper_call_funcproc
 from src.config import *
+
 
 @wrapper_insert(table_name='tutores')
 def insert_tutor(nrocontrol,nombre,apellido1,apellido2,idcarrera):
@@ -18,6 +20,6 @@ def consulta_tutores():
     return {TABLE_FIELDS:["Nro Control","Tutor","Apellido 1","Apellido 2","Carrera"]}
 
 
-
+@wrapper_call_funcproc(func_name="get_session",error_msg="Nro de control o contrasenia incorrectos")
 def session_tutor(nrocontrol,password):
-    
+    return { PARAMS:[nrocontrol,password,True] }

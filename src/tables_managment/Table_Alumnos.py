@@ -1,4 +1,4 @@
-from src.Manager import wrapper_custom_query,wrapper_insert
+from src.Manager import wrapper_custom_query,wrapper_insert,wrapper_call_funcproc
 from src.config import *
 
 
@@ -14,3 +14,8 @@ def insert_alumno(nrocontrol,nombre,apellido1,apellido2,idgrupo):
 def consulta_general_alumnos(idgrupo):
     return {TABLE_FIELDS:["Nro Control","Nombre","Apellido 1","Apellido 2","Grupo"],
             'where': f"alumnos.idgrupo={idgrupo}"}
+
+
+@wrapper_call_funcproc(func_name="get_session",error_msg="Nro de control o contrasenia incorrectos")
+def session_alumno(nrocontrol,password):
+    return { PARAMS:[nrocontrol,password,False] }

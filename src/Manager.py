@@ -1,17 +1,18 @@
 import psycopg2
-from flask import Flask,session
+from flask import Flask
 import json
 from config import *
 from psycopg2 import Error
 from flask_cors import CORS
+from psycopg2.extensions import cursor as cur
 
 try:
     app = Flask(__name__)
     CORS(app)
-    connection = psycopg2.connect(user='postgres',password='psql',host='127.0.0.1',
-                          database='seguimiento_academico')
+    connection = psycopg2.connect(user='postgres', password='psql', host='127.0.0.1',
+                                  database='seguimiento_academico')
 
-    cursor = connection.cursor()
+    cursor: cur = connection.cursor()
     print(f"PostgreSQL server information, cursor type: {type(cursor)}")
     print(connection.get_dsn_parameters(), "\n")
     # Executing a SQL query
@@ -24,18 +25,16 @@ except (Exception, Error) as error:
     print("Error while connecting to PostgreSQL", error)
 
 
-
-def wrapper_custom_query(*args,**kwargs):
-
+def wrapper_custom_query(*args, **kwargs):
     def decorator(func):
-        def wrapper(*wargs,**wkwargs):
-            data_func = func(*wargs,**wkwargs)
+        def wrapper(*wargs, **wkwargs):
+            data_func = func(*wargs, **wkwargs)
             if args:
-                args2 = ['{}.{}'.format(kwargs["table_name"],a) for a in args]
-                fields = str(args2).replace("[","").replace("]","").replace("'","")
+                args2 = ['{}.{}'.format(kwargs["table_name"], a) for a in args]
+                fields = str(args2).replace("[", "").replace("]", "").replace("'", "")
 
             if kwargs.get('custom_select'):
-                select_args = str(kwargs['custom_select']).replace("[","").replace("]","").replace("'","")
+                select_args = str(kwargs['custom_select']).replace("[", "").replace("]", "").replace("'", "")
                 if args:
                     select = f"SELECT {fields},{select_args} FROM {kwargs['table_name']}"
                 else:
@@ -45,14 +44,14 @@ def wrapper_custom_query(*args,**kwargs):
 
             if kwargs.get('innerjoin') and kwargs.get('on'):
                 onq = kwargs['on']
-                index=0
-                joinquery=''
+                index = 0
+                joinquery = ''
                 for injoin in kwargs['innerjoin']:
                     on1 = onq[index]
-                    index+=1
+                    index += 1
                     on2 = onq[index]
-                    index+=1
-                    joinquery+=f' inner join {injoin} on {on1}={on2}'
+                    index += 1
+                    joinquery += f' inner join {injoin} on {on1}={on2}'
 
                 query = select + joinquery
             else:
@@ -69,23 +68,20 @@ def wrapper_custom_query(*args,**kwargs):
             else:
                 return record
 
-
-
         return wrapper
 
     return decorator
 
 
-def wrapper_query_all(*args,**kwargs):
-
+def wrapper_query_all(*args, **kwargs):
     def decorator(func):
-        def wrapper(*wargs,**wkwargs):
-            data_func: dict = func(*wargs,**wkwargs)
+        def wrapper(*wargs, **wkwargs):
+            data_func: dict = func(*wargs, **wkwargs)
             query = f'SELECT * FROM {kwargs["table_name"]}'
             cursor.execute(query)
             record = cursor.fetchall()
 
-            dic = {'fields':data_func[TABLE_FIELDS],'values': record}
+            dic = {'fields': data_func[TABLE_FIELDS], 'values': record}
 
             return json.dumps(dic)
 
@@ -94,27 +90,51 @@ def wrapper_query_all(*args,**kwargs):
     return decorator
 
 
-def wrapper_insert(*args,**kwargs):
-
+def wrapper_insert(*args, **kwargs):
     def decorator(function):
-        def wrapper(*arg2,**kwargs2):
-            data: dict = function(*arg2,**kwargs2)
+        def wrapper(*arg2, **kwargs2):
+            data: dict = function(*arg2, **kwargs2)
 
-            fields = str(list(data['field_values'].keys())).replace("[","(").replace("]",")").replace("'","")
-            values = str(list(data['field_values'].values())).replace("[","(").replace("]",")")
+            fields = str(list(data['field_values'].keys())).replace("[", "(").replace("]", ")").replace("'", "")
+            values = str(list(data['field_values'].values())).replace("[", "(").replace("]", ")")
             query = f'INSERT INTO {kwargs["table_name"]} {fields} VALUES {values}'
 
             try:
                 cursor.execute(query)
-                dic = {'status': 0,'title': f'Tabla "{kwargs["table_name"]}" actualizada',
+                dic = {'status': 0, 'title': f'Tabla "{kwargs["table_name"]}" actualizada',
                        'msg': 'Registro ingresado correctamente'}
 
             except Exception as ex:
                 dic = {'status': -1, 'title': f'Error al registar en  {kwargs["table_name"]}',
-                        'msg': repr(ex)}
+                       'msg': repr(ex)}
 
             connection.commit()
             return json.dumps(dic)
+
+        return wrapper
+
+    return decorator
+
+
+def wrapper_call_funcproc(*args, **kwargs):
+    def decorator(function):
+        def wrapper(*args2, **kwargs2):
+            try:
+                data_func = function(*args2, **kwargs2)
+                params: [] = data_func[PARAMS]
+                cursor.callproc(kwargs[FUNC_NAME], params)
+                result = cursor.fetchall()
+                cursor.execute(f'FETCH ALL IN "{result[0][0]}"')
+                result = cursor.fetchall()
+
+                if result:
+                    return json.dumps(result)
+                else:
+                    return json.dumps({'status': -1, 'error': kwargs[ERROR_FUN_MSG]})
+            except Exception as e:
+                print(repr(e))
+                connection.commit()
+                return json.dumps({'status': -1, 'error': "Error en el servidor"})
 
         return wrapper
 
