@@ -111,8 +111,8 @@ def consulta_pagina_tutores(nrocontrol_tutor):
         #Extrae info del alumno dado (alumno[0]=nrocontrol)
 
         alinfo: dict = json.loads(__extraer_info_alumno(alumno[0]))
-
-        alinfo['Nro Control'] = alumno[1]
+        alinfo['Nro Control'] = alumno[0]
+        alinfo['Alumno'] = " ".join(alumno[1:])
 
         total_mat_apr = __total_materias_aprobadas(alumno[0])[0][0]
         alinfo['Total Materias Aprobadas']=total_mat_apr
