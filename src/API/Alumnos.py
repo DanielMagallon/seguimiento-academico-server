@@ -60,5 +60,5 @@ def update_alumno():
     data = json.loads(update_data_alumno(nrocontrol_al,codigo_materia,calif))
     if data['status'] == 0:
         return Response(consulta_pagina_tutores(nrocontrol_tu,True,nrocontrol_al))
-    else:
-        return Response(data)
+
+    return Response(data)

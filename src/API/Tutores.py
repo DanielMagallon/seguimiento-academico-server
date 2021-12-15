@@ -1,6 +1,9 @@
 from src import Response,request,app,consulta_tutores,cross_origin,\
                     insert_tutor,json,consulta_pagina_tutores,session_tutor
 
+from src.config import SECRET_JWT,TIMEOUT_JWT
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
 
 @app.route('/tutores/consulta/all', methods=['POST', 'GET'])
 @cross_origin(origin='*', headers=['Content-Type'])
@@ -54,5 +57,30 @@ def tutor_login():
     data = request.get_json()
     nrocontrol = data['nrocontrol']
     password = data['clave']
-    return Response(session_tutor(nrocontrol,password))
+    data = json.loads(session_tutor(nrocontrol,password))
 
+    if data['status'] == 0:
+        s = Serializer(SECRET_JWT,TIMEOUT_JWT)
+        payload = {
+            'idGrupo': data['values'][0],
+        }
+        data['jwt'] = s.dumps(payload).decode('utf-8')
+
+    return Response(data)
+
+
+@app.route("/tutor/validar-token",methods=["POST"])
+def validar_token_tutor():
+    data = request.get_json()
+    jwt = data['jwt']
+    s = Serializer(SECRET_JWT)
+    response = {}
+
+    try:
+        response['idGrupo'] = s.loads(jwt)['idGrupo']
+        response['status'] = 0
+        response['msg'] = "Token valido"
+    except:
+        response = {'status':-1,'msg':'El token no es valido. Inicie sesion nuevamente por su seguridad'}
+
+    return Response(json.loads(response))

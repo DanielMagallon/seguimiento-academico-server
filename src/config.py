@@ -7,3 +7,5 @@ PARAMS='params'
 ERROR_FUN_MSG='error_msg'
 PROC_VALUES='proc_values'
 PROC_PARAMS='proc_params'
+SECRET_JWT="Poo es marica"
+TIMEOUT_JWT=6000
