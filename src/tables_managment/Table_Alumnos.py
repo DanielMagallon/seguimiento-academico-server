@@ -1,4 +1,4 @@
-from src.Manager import wrapper_custom_query,wrapper_insert,wrapper_call_funcproc
+from src.Manager import wrapper_custom_query,wrapper_insert,wrapper_call_funcproc,wrapper_update
 from src.config import *
 
 
@@ -21,4 +21,12 @@ def session_alumno(nrocontrol,password):
     return {
         TABLE_FIELDS: ["Nombre","Apellido 1","Apellido 2","Id Grupo","Grupo"],
         PARAMS:[nrocontrol,password,False]
+    }
+
+
+@wrapper_update(table_name="alumnos_materias")
+def update_data_alumno(nrocontrol,codigo_mat,calif):
+    return {
+        'field_values':f"calificacion={calif}",
+        'where':f"nrocontrol='{nrocontrol}' and codigo_materia='{codigo_mat}'"
     }

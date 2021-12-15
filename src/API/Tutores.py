@@ -16,8 +16,10 @@ def tutores_registro():
     apellido2 = data['apellido2']
     idcarrera = data['idcarrera']
     nrocontrol = data['nrocontrol']
+    password = data['clave']
+
     return Response(insert_tutor(nombre=nombre, apellido1=apellido1, apellido2=apellido2,
-                                 nrocontrol=nrocontrol, idcarrera=idcarrera))
+                                 nrocontrol=nrocontrol, idcarrera=idcarrera,password=password))
 
 
 @app.route("/tutores/multiregistro", methods=["POST"])
@@ -51,6 +53,6 @@ def consulta_tutor():
 def tutor_login():
     data = request.get_json()
     nrocontrol = data['nrocontrol']
-    clave = data['clave']
-    return Response(session_tutor(nrocontrol,clave))
+    password = data['clave']
+    return Response(session_tutor(nrocontrol,password))
 

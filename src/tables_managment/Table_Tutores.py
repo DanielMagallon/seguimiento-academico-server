@@ -1,17 +1,12 @@
-import json
 from src.Manager import wrapper_insert,wrapper_custom_query,wrapper_call_funcproc
 from src.config import *
 
 
 @wrapper_insert(table_name='tutores')
-def insert_tutor(nrocontrol,nombre,apellido1,apellido2,idcarrera):
+def insert_tutor(nrocontrol,nombre,apellido1,apellido2,idcarrera,password):
+    cryptpass = f"crypt('{password}',gen_salt('bf'))"
     return { FIELD_VALUES: {'nrocontrol': nrocontrol,'nombre':nombre,'apellido1':apellido1,
-                              'apellido2':apellido2,'idcarrera':idcarrera}}
-
-
-# @wrapper_query_all("nrocontrol", "nombre", "apellido1", "apellido2", "idcarrera",table_name='tutores')
-# def consulta_general_tutor():
-#     ...
+                              'apellido2':apellido2,'idcarrera':idcarrera,"password":cryptpass}}
 
 
 @wrapper_custom_query("nrocontrol","nombre","apellido1","apellido2",table_name="tutores",

@@ -98,7 +98,7 @@ def wrapper_insert(*args, **kwargs):
             fields = str(list(data['field_values'].keys())).replace("[", "(").replace("]", ")").replace("'", "")
             values = str(list(data['field_values'].values())).replace("[", "(").replace("]", ")")
             query = f'INSERT INTO {kwargs["table_name"]} {fields} VALUES {values}'
-
+            print(f"Insert into {query}")
             try:
                 cursor.execute(query)
                 dic = {'status': 0, 'title': f'Tabla "{kwargs["table_name"]}" actualizada',
@@ -116,15 +116,43 @@ def wrapper_insert(*args, **kwargs):
     return decorator
 
 
+def wrapper_update(*args, **kwargs):
+    def decorator(function):
+        def wrapper(*arg2, **kwargs2):
+            data: dict = function(*arg2, **kwargs2)
+
+            query = f'UPDATE {kwargs["table_name"]} set {data["field_values"]} where {data["where"]}'
+            print(f"updating {query}")
+            try:
+                cursor.execute(query)
+                dic = {'status': 0, 'title': f'Tabla "{kwargs["table_name"]}" actualizada',
+                       'msg': 'Registro actualizado correctamente'}
+
+            except Exception as ex:
+                dic = {'status': -1, 'title': f'Error al actualizar en  {kwargs["table_name"]}',
+                       'msg': repr(ex)}
+
+            connection.commit()
+            return json.dumps(dic)
+
+        return wrapper
+
+    return decorator
+
+
 def wrapper_call_funcproc(*args, **kwargs):
     def decorator(function):
         def wrapper(*args2, **kwargs2):
             try:
                 data_func = function(*args2, **kwargs2)
                 params: [] = data_func[PARAMS]
-                cursor.callproc(kwargs[FUNC_NAME], params)
-                result = cursor.fetchall()
-                cursor.execute(f'FETCH ALL IN "{result[0][0]}"')
+                if kwargs.get('type',None) == 'procedure':
+                    cursor.execute(f"CALL {kwargs[FUNC_NAME]}{data_func[PROC_PARAMS]};", data_func[PROC_VALUES])
+                else:
+                    cursor.callproc(kwargs[FUNC_NAME], params)
+                    result = cursor.fetchall()
+                    cursor.execute(f'FETCH ALL IN "{result[0][0]}"')
+
                 result = cursor.fetchall()
 
                 if result:

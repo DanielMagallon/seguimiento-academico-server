@@ -1,21 +1,42 @@
 #! /usr/bin/env bash
 
 host='localhost'
-select i in "a)Consulta  los alumnos" "b)Consulta  los grupos" "c)Consultar grupo-tutores" "d)Consultar tutores"\
-	    "e)Consultar materias" "f)Consultar alumnos-materias"; do 
+select i in "Tutores registro" "Tutores login" "Alumnos Update" "Clear"; do
+	   
    case "$i" in
-      "a)"*)
-	 
+      "Tutores registro"*)
+	 read -p "Nro control: " nrocontrol
+	 read -p "Nombre: " nombre
+	 read -p "Apellido 1: " apellido1
+	 read -p "Apellido 2: " apellido2
+	 read -p "Id carrera: " idcarrera
+	 read -p "Password: " password
+
+	 json="\"nrocontrol\":\"$nrocontrol\",\"nombre\":\"$nombre\",\"apellido1\":\"$apellido1\",\"apellido2\":\"$apellido2\",\"idcarrera\":$idcarrera,\"clave\":\"$password\""
+	 echo "{$json}" > cjson.json
+	 curl -H "Content-Type: application/json" --request POST --data @./cjson.json  "http://192.168.1.71:5800/tutores/registro";echo
          ;;
-      "b)"*)
-         ;;
-      "c)"*)
-         ;;
-      "d)"*)
-         ;;
-      "e)"*)
-         ;;
-      "f)"*)
-         ;;
+
+      "Tutores login")
+	    read -p "Nro control: " nrocontrol
+	    read -p "Password: " password
+	    json="\"nrocontrol\":\"$nrocontrol\",\"clave\":\"$password\""
+	    echo "{$json}" > cjson.json
+	    curl -H "Content-Type: application/json" --request POST --data @./cjson.json  "http://192.168.1.71:5800/tutor/login";echo
+	 ;;
+
+      "Alumnos Update")
+	    read -p "Nro control alumno: " nrocontrol_al
+	    read -p "Nro control tutor: " nrocontrol_tu
+	    read -p "Codigo mat: " codigo_mat
+	    read -p "Calif: " calif
+	    json="\"nrocontrol_alumno\":\"$nrocontrol_al\",\"nrocontrol_tutor\":\"$nrocontrol_tu\",\"codigo_materia\":\"$codigo_mat\",\"calificacion\":\"$calif\""
+	    echo "{$json}" > cjson.json
+	    curl -H "Content-Type: application/json" --request POST --data @./cjson.json  "http://192.168.1.71:5800/alumno/update";echo
+	 ;;
+
+      "Clear")
+	 clear
+	 ;;
    esac
 done

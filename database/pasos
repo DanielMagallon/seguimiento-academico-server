@@ -1,3 +1,11 @@
+#actuclizar datos -> Arreglo con el de la  materia y su caliicacion mas el numero de control del alumno -> situacion y #promedio
+#Checar lo del jwt, regresarlo al loguarse y hacer una url
+#encriptar clave
+#Fanlizar semstre -> cambiar la oprutnidad de los alumnos
+#cerrar sesion -> eliminar token
+
+
+
 #Para consultas profesores:
    1) Extrear el grupo (activo) (informacion del carrera, como su nombre,id,totla_credito) al que dicho tutor se esta encargado actualmente:
       

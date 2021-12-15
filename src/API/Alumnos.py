@@ -1,5 +1,5 @@
 from src import Response,request,app,session_alumno,json,\
-                consulta_general_alumnos,cross_origin,insert_alumno
+                consulta_general_alumnos,cross_origin,insert_alumno,update_data_alumno,consulta_pagina_tutores
 
 
 @app.route('/alumnos/consulta/bygrupo', methods=['POST', 'GET'])
@@ -48,3 +48,17 @@ def alumnos_login():
     nrocontrol = data['nrocontrol']
     clave = data['clave']
     return Response(session_alumno(nrocontrol,clave))
+
+
+@app.route("/alumno/update",methods=["GET","POST"])
+def update_alumno():
+    data = request.get_json()
+    nrocontrol_al = data['nrocontrol_alumno']
+    nrocontrol_tu = data['nrocontrol_tutor']
+    codigo_materia = data['codigo_materia']
+    calif = float(data['calificacion'])
+    data = json.loads(update_data_alumno(nrocontrol_al,codigo_materia,calif))
+    if data['status'] == 0:
+        return Response(consulta_pagina_tutores(nrocontrol_tu,True,nrocontrol_al))
+    else:
+        return Response(data)
