@@ -8,6 +8,7 @@ from psycopg2.extensions import cursor as cur
 
 try:
     app = Flask(__name__)
+    app.config['SECRET_KEY'] = SECRET_JWT
     CORS(app)
     connection = psycopg2.connect(user='postgres', password='psql', host='127.0.0.1',
                                   database='seguimiento_academico')

@@ -1,4 +1,4 @@
-from flask import Response, request
+from flask import Response, request,session
 from Manager import *
 from flask_cors import cross_origin
 from secciones_paginas.Tutores import *

@@ -57,6 +57,7 @@ def tutor_login():
     data = request.get_json()
     nrocontrol = data['nrocontrol']
     password = data['clave']
+
     data = json.loads(session_tutor(nrocontrol,password))
 
     if data['status'] == 0:
@@ -66,7 +67,7 @@ def tutor_login():
         }
         data['jwt'] = s.dumps(payload).decode('utf-8')
 
-    return Response(data)
+    return Response(json.dumps(data))
 
 
 @app.route("/tutor/validar-token",methods=["POST"])
@@ -83,4 +84,4 @@ def validar_token_tutor():
     except:
         response = {'status':-1,'msg':'El token no es valido. Inicie sesion nuevamente por su seguridad'}
 
-    return Response(json.loads(response))
+    return Response(json.dumps(response))
