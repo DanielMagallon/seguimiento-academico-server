@@ -157,6 +157,7 @@ def wrapper_call_funcproc(*args, **kwargs):
                     cursor.execute(f'FETCH ALL IN "{result[0][0]}"')
 
                 result = cursor.fetchall()
+                connection.commit()
 
                 if result:
                     dic = {'status': 0,'fields': data_func[TABLE_FIELDS], 'values': result}
