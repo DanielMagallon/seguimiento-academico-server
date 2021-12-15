@@ -1,4 +1,5 @@
 import psycopg2
+import traceback
 from flask import Flask
 import json
 from config import *
@@ -152,6 +153,7 @@ def wrapper_call_funcproc(*args, **kwargs):
                 else:
                     cursor.callproc(kwargs[FUNC_NAME], params)
                     result = cursor.fetchall()
+                    print(f"Result: {result}")
                     cursor.execute(f'FETCH ALL IN "{result[0][0]}"')
 
                 result = cursor.fetchall()
@@ -162,7 +164,9 @@ def wrapper_call_funcproc(*args, **kwargs):
                 else:
                     return json.dumps({'status': -1, 'error': kwargs[ERROR_FUN_MSG]})
             except Exception as e:
-                print(repr(e))
+                print(f"{repr(e)} \n \t {e}")
+                tb = traceback.format_exc()
+                print(tb)
                 connection.commit()
                 return json.dumps({'status': -1, 'error': "Error en el servidor"})
 

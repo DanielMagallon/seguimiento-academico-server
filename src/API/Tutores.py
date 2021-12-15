@@ -1,5 +1,5 @@
 from src import Response,request,app,consulta_tutores,cross_origin,\
-                    insert_tutor,json,consulta_pagina_tutores,session_tutor
+                    insert_tutor,json,consulta_pagina_tutores,session_tutor,finalizar_semestre
 
 from src.config import SECRET_JWT,TIMEOUT_JWT
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
@@ -85,3 +85,10 @@ def validar_token_tutor():
         response = {'status':-1,'msg':'El token no es valido. Inicie sesion nuevamente por su seguridad'}
 
     return Response(json.dumps(response))
+
+
+@app.route("/tutor/finalizar-semestre",methods=["POST"])
+def finish():
+    data = request.get_json()
+    nrocontrol = data['nrocontrol_tutor']
+    return Response(finalizar_semestre(nrocontrol))

@@ -1,9 +1,15 @@
 #! /usr/bin/env bash
 
 host='localhost'
-select i in "Tutores registro" "Tutores login" "Alumnos Update" "Clear"; do
+select i in "Tutores registro" "Tutores login" "Cerrar semestre" "Alumnos Update" "Clear"; do
 	   
    case "$i" in
+      "Cerrar semestre")
+	 read -p "Nro control tutor: " nrocontrol
+	 json="\"nrocontrol_tutor\":\"$nrocontrol\""
+	 echo "{$json}" > cjson.json
+	 curl -H "Content-Type: application/json" --request POST --data @./cjson.json  "http://192.168.1.71:5800/tutor/finalizar-semestre";echo  
+	 ;;
       "Tutores registro"*)
 	 read -p "Nro control: " nrocontrol
 	 read -p "Nombre: " nombre

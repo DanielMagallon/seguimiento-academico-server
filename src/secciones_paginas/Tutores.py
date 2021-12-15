@@ -1,4 +1,4 @@
-from src.Manager import wrapper_custom_query
+from src.Manager import wrapper_custom_query,wrapper_call_funcproc
 from src.config import *
 import json
 
@@ -83,6 +83,18 @@ def __creditos_acumulados(nrocontrol_alumno):
 def __promedio_grupal_materias(idgrupo):
     return {TABLE_FIELDS: ["Codigo Materia", "Materia", "Promedio"],
             'where': f"alumnos.idgrupo={idgrupo} group by alumnos_materias.codigo_materia, materias.nombre"}
+
+
+@wrapper_call_funcproc(func_name="cerrar_semestre",error_msg="Hubo un error al actualizar los  datos del semestre.")
+def finalizar_semestre(nrocontrol_tutor):
+    grupo_tutor = json.loads(__extraer_grupo_tutor(nrocontrol_tutor))
+    current_idgrupo = grupo_tutor['values'][0][0]
+
+    return {
+        TABLE_FIELDS: None,
+        PARAMS: [current_idgrupo, CALIFICACION_APROBATORIA]
+    }
+
 
 
 def consulta_pagina_tutores(nrocontrol_tutor, by_alumno=False, nrocontrol_alumno=None):
