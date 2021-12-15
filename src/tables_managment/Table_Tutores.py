@@ -22,4 +22,7 @@ def consulta_tutores():
 
 @wrapper_call_funcproc(func_name="get_session",error_msg="Nro de control o contrasenia incorrectos")
 def session_tutor(nrocontrol,password):
-    return { PARAMS:[nrocontrol,password,True] }
+    return {
+        TABLE_FIELDS: ["Id grupo","Nombre","Carrera"],
+        PARAMS:[nrocontrol,password,True]
+    }

@@ -128,7 +128,8 @@ def wrapper_call_funcproc(*args, **kwargs):
                 result = cursor.fetchall()
 
                 if result:
-                    return json.dumps(result)
+                    dic = {'status': 0,'fields': data_func[TABLE_FIELDS], 'values': result}
+                    return json.dumps(dic)
                 else:
                     return json.dumps({'status': -1, 'error': kwargs[ERROR_FUN_MSG]})
             except Exception as e:

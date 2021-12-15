@@ -18,4 +18,7 @@ def consulta_general_alumnos(idgrupo):
 
 @wrapper_call_funcproc(func_name="get_session",error_msg="Nro de control o contrasenia incorrectos")
 def session_alumno(nrocontrol,password):
-    return { PARAMS:[nrocontrol,password,False] }
+    return {
+        TABLE_FIELDS: ["Nombre","Apellido 1","Apellido 2","Id Grupo","Grupo"],
+        PARAMS:[nrocontrol,password,False]
+    }

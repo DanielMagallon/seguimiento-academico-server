@@ -40,7 +40,6 @@ def tutores_multiregistro():
     return Response(json.dumps(promises))
 
 
-
 @app.route("/consulta-tutor",methods=["GET","POST"])
 def consulta_tutor():
     data = request.get_json()
