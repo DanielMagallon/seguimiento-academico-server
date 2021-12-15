@@ -17,6 +17,49 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
+
+
+--
+-- Name: cerrar_semestre(integer, real); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.cerrar_semestre(id_grupo integer, calif_apro real) RETURNS refcursor
+    LANGUAGE plpgsql
+    AS $$
+	
+	declare  
+		ref1  refcursor;
+	
+	begin
+		update alumnos_materias as alm set oportunidad=oportunidad+1
+		where  alm.activo and alm.calificacion<calif_apro 
+		and nrocontrol in (select nrocontrol from alumnos where idgrupo=id_grupo);
+	
+		update alumnos_materias as alm set activo=false
+		where  alm.activo and nrocontrol in 
+			(select nrocontrol from alumnos where idgrupo=id_grupo);
+		
+		open ref1 for select count(*) from alumnos_materias;
+		
+		return ref1;
+	end;
+$$;
+
+
+ALTER FUNCTION public.cerrar_semestre(id_grupo integer, calif_apro real) OWNER TO postgres;
+
+--
 -- Name: get_session(character varying, character varying); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -246,61 +289,53 @@ Raul	Arceo	Melgoza	9	18420609	12345
 --
 
 COPY public.alumnos_materias (nrocontrol, codigo_materia, calificacion, oportunidad, asesoria, activo) FROM stdin;
-17420571	SADG-20	80	1	f	t
-17420571	SADG-27	80	1	f	t
-17420571	SAIS-100	60	3	f	f
-17420571	SADG-22	80	3	f	f
-17420571	SAIS-101	0	3	f	t
-17420571	SAIS-104	0	1	f	t
-17420565	SADG-20	0	1	f	t
-17420565	SAIS-100	0	1	f	t
-17420565	SADG-22	0	1	f	t
-17420565	SAIS-101	0	1	f	t
-17420565	SADG-27	0	1	f	t
-17420565	SAIS-104	0	1	f	t
-17420575	SADG-20	0	1	f	t
-17420575	SAIS-100	0	1	f	t
-17420575	SADG-22	0	1	f	t
-17420575	SAIS-101	0	1	f	t
-17420575	SADG-27	0	1	f	t
-17420575	SAIS-104	0	1	f	t
-17420578	SADG-20	0	1	f	t
-17420578	SAIS-100	0	1	f	t
-17420578	SADG-22	0	1	f	t
-17420578	SAIS-101	0	1	f	t
-17420578	SADG-27	0	1	f	t
-17420578	SAIS-104	0	1	f	t
-17420579	SADG-20	0	1	f	t
-17420579	SAIS-100	0	1	f	t
-17420579	SADG-22	0	1	f	t
-17420579	SAIS-101	0	1	f	t
-17420579	SADG-27	0	1	f	t
-17420579	SAIS-104	0	1	f	t
-17420580	SADG-20	0	1	f	t
-17420580	SAIS-100	0	1	f	t
-17420580	SADG-22	0	1	f	t
-17420580	SAIS-101	0	1	f	t
-17420580	SADG-27	0	1	f	t
-17420580	SAIS-104	0	1	f	t
-17420581	SADG-20	0	1	f	t
-17420581	SAIS-100	0	1	f	t
-17420581	SADG-22	0	1	f	t
-17420581	SAIS-101	0	1	f	t
-17420581	SADG-27	0	1	f	t
-17420581	SAIS-104	0	1	f	t
-17420583	SADG-20	0	1	f	t
-17420583	SAIS-100	0	1	f	t
-17420583	SADG-22	0	1	f	t
-17420583	SAIS-101	0	1	f	t
-17420583	SADG-27	0	1	f	t
-17420583	SAIS-104	0	1	f	t
 17420600	SADG-20	0	1	f	t
 17420600	SAIS-100	0	1	f	t
 17420600	SADG-22	0	1	f	t
 17420600	SAIS-101	0	1	f	t
 17420600	SADG-27	0	1	f	t
 17420600	SAIS-104	0	1	f	t
-17420572	SADG-20	0	1	f	t
+17420580	SADG-27	0	2	f	f
+17420571	SADG-22	80	1	f	f
+17420580	SAIS-104	0	2	f	f
+17420581	SADG-20	0	2	f	f
+17420583	SAIS-101	0	2	f	f
+17420583	SADG-27	0	2	f	f
+17420583	SAIS-104	0	2	f	f
+17420565	SAIS-101	0	2	f	f
+17420565	SADG-27	0	2	f	f
+17420565	SAIS-104	0	2	f	f
+17420575	SADG-20	0	2	f	f
+17420575	SAIS-100	0	2	f	f
+17420571	SAIS-101	0	2	f	f
+17420571	SAIS-104	0	2	f	f
+17420565	SADG-20	0	2	f	f
+17420565	SAIS-100	0	2	f	f
+17420565	SADG-22	0	2	f	f
+17420571	SAIS-100	60	2	f	f
+17420575	SADG-22	0	2	f	f
+17420575	SAIS-101	0	2	f	f
+17420575	SADG-27	0	2	f	f
+17420575	SAIS-104	0	2	f	f
+17420578	SADG-20	0	2	f	f
+17420578	SAIS-100	0	2	f	f
+17420578	SADG-22	0	2	f	f
+17420578	SAIS-101	0	2	f	f
+17420578	SADG-27	0	2	f	f
+17420578	SAIS-104	0	2	f	f
+17420579	SADG-20	0	2	f	f
+17420579	SAIS-100	0	2	f	f
+17420579	SADG-22	0	2	f	f
+17420579	SAIS-101	0	2	f	f
+17420581	SAIS-100	0	2	f	f
+17420581	SADG-22	0	2	f	f
+17420581	SAIS-101	0	2	f	f
+17420581	SADG-27	0	2	f	f
+17420581	SAIS-104	0	2	f	f
+17420583	SADG-20	0	2	f	f
+17420583	SAIS-100	0	2	f	f
+17420583	SADG-22	0	2	f	f
+17420571	SADG-20	7	2	f	f
 17420572	SAIS-100	0	1	f	t
 17420572	SADG-22	0	1	f	t
 17420572	SAIS-101	0	1	f	t
@@ -322,6 +357,33 @@ COPY public.alumnos_materias (nrocontrol, codigo_materia, calificacion, oportuni
 17420585	SAIS-100	0	1	f	t
 17420585	SADG-22	0	1	f	t
 17420585	SAIS-101	0	1	f	t
+17420582	SADG-22	0	1	f	t
+17420582	SAIS-101	0	1	f	t
+17420582	SADG-27	0	1	f	t
+17420582	SAIS-104	0	1	f	t
+17420584	SADG-20	0	1	f	t
+17420584	SAIS-100	0	1	f	t
+17420584	SADG-22	0	1	f	t
+17420584	SAIS-101	0	1	f	t
+17420572	SADG-20	100	1	f	t
+17420584	SADG-27	0	1	f	t
+17420584	SAIS-104	0	1	f	t
+17420587	SADG-20	0	1	f	t
+17420587	SAIS-100	0	1	f	t
+17420587	SADG-22	0	1	f	t
+17420587	SAIS-101	0	1	f	t
+17420571	SADG-27	80	1	f	f
+17420587	SADG-27	0	1	f	t
+17420587	SAIS-104	0	1	f	t
+19420500	SADG-20	0	1	f	t
+19420500	SADG-23	0	1	f	t
+19420500	SADG-25	0	1	f	t
+19420501	SADG-20	0	1	f	t
+19420501	SADG-23	0	1	f	t
+19420501	SADG-25	0	1	f	t
+19420502	SADG-20	0	1	f	t
+19420502	SADG-23	0	1	f	t
+19420502	SADG-25	0	1	f	t
 17420585	SADG-27	0	1	f	t
 17420585	SAIS-104	0	1	f	t
 17420586	SADG-20	0	1	f	t
@@ -350,31 +412,12 @@ COPY public.alumnos_materias (nrocontrol, codigo_materia, calificacion, oportuni
 17420577	SAIS-104	0	1	f	t
 17420582	SADG-20	0	1	f	t
 17420582	SAIS-100	0	1	f	t
-17420582	SADG-22	0	1	f	t
-17420582	SAIS-101	0	1	f	t
-17420582	SADG-27	0	1	f	t
-17420582	SAIS-104	0	1	f	t
-17420584	SADG-20	0	1	f	t
-17420584	SAIS-100	0	1	f	t
-17420584	SADG-22	0	1	f	t
-17420584	SAIS-101	0	1	f	t
-17420584	SADG-27	0	1	f	t
-17420584	SAIS-104	0	1	f	t
-17420587	SADG-20	0	1	f	t
-17420587	SAIS-100	0	1	f	t
-17420587	SADG-22	0	1	f	t
-17420587	SAIS-101	0	1	f	t
-17420587	SADG-27	0	1	f	t
-17420587	SAIS-104	0	1	f	t
-19420500	SADG-20	0	1	f	t
-19420500	SADG-23	0	1	f	t
-19420500	SADG-25	0	1	f	t
-19420501	SADG-20	0	1	f	t
-19420501	SADG-23	0	1	f	t
-19420501	SADG-25	0	1	f	t
-19420502	SADG-20	0	1	f	t
-19420502	SADG-23	0	1	f	t
-19420502	SADG-25	0	1	f	t
+17420579	SADG-27	0	2	f	f
+17420579	SAIS-104	0	2	f	f
+17420580	SADG-20	0	2	f	f
+17420580	SAIS-100	0	2	f	f
+17420580	SADG-22	0	2	f	f
+17420580	SAIS-101	0	2	f	f
 \.
 
 
@@ -454,6 +497,7 @@ COPY public.tutores (nrocontrol, nombre, apellido1, apellido2, idcarrera, passwo
 11420201	Vicente	Fernandez	Figueroa	3	12345
 11420202	Elon	Musk	Magallon	3	12345
 12420103	Mark	Zucaritas	Villanueva	3	12345
+12420100	Armando	Hurtado	Jimenez	1	12345
 \.
 
 
