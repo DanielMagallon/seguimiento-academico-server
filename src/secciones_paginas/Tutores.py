@@ -19,12 +19,12 @@ def __extraer_alumnos_grupo_tutor(idgrupo):
 
 
 @wrapper_custom_query("calificacion","oportunidad","asesoria",
-                      custom_select="materias.nombre",
+                      custom_select="materias.codigo_materia, materias.nombre",
                       table_name="alumnos_materias",innerjoin=["materias"],
                       on=["materias.codigo_materia","alumnos_materias.codigo_materia"])
 def __extraer_info_alumno(nrocontrol_alumno):
     return {'where': f"nrocontrol='{nrocontrol_alumno}' and activo",
-            TABLE_FIELDS: ["Calificacion", "Oportunidad", "Asesoria","Materia"]}
+            TABLE_FIELDS: ["Calificacion", "Oportunidad", "Asesoria","Codigo Materia","Materia"]}
 
 
 @wrapper_custom_query(table_name="alumnos",custom_select="count(1)")
@@ -99,9 +99,6 @@ def consulta_pagina_tutores(nrocontrol_tutor):
     prom_grup_mat = json.loads(__promedio_grupal_materias(current_idgrupo))
     data['Promedios Materias Grupal'] = prom_grup_mat if prom_grup_mat is not None else 0
 
-    # print(f"Paso 1: Grupo = {grupo_tutor}")
-    # print(f"Paso 2: Grupo = {alumnos_grupo}")
-    # print("Paso 3: Alumnos Info")
 
     alumnos_info = []
     alumnos_total_materias_reporte = {'Todas aprobadas':0}
