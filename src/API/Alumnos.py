@@ -1,5 +1,6 @@
 from src import Response,request,app,session_alumno,json,\
-                consulta_general_alumnos,cross_origin,insert_alumno,update_data_alumno,consulta_pagina_tutores
+                consulta_general_alumnos,cross_origin,insert_alumno,update_data_alumno,consulta_pagina_tutores,\
+                consulta_materia_xnombre
 
 
 @app.route('/alumnos/consulta/bygrupo', methods=['POST', 'GET'])
@@ -55,7 +56,9 @@ def update_alumno():
     data = request.get_json()
     nrocontrol_al = data['nrocontrol_alumno']
     nrocontrol_tu = data['nrocontrol_tutor']
-    codigo_materia = data['codigo_materia']
+
+    nombre_materia = data['nombre_materia']
+    codigo_materia = json.loads(consulta_materia_xnombre(nombre_materia))['values'][0][0]
     calif = float(data['calificacion'])
     data = json.loads(update_data_alumno(nrocontrol_al,codigo_materia,calif))
     if data['status'] == 0:

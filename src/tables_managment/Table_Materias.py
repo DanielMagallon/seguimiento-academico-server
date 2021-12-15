@@ -1,4 +1,4 @@
-from src.Manager import wrapper_query_all,wrapper_insert
+from src.Manager import wrapper_query_all,wrapper_insert,wrapper_custom_query
 from src.config import *
 
 
@@ -10,3 +10,9 @@ def insert_materia(codigo_materia,nombre,creditos):
 @wrapper_query_all(table_name='materias')
 def consulta_general_materia():
     return {TABLE_FIELDS:["Codigo ","Materia","Creditos"]}
+
+
+@wrapper_custom_query("codigo_materia",table_name="materias")
+def consulta_materia_xnombre(nombre_materia):
+    return {TABLE_FIELDS:["Codigo materia"],
+            'where': f"nombre='{nombre_materia}'"}

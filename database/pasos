@@ -1,8 +1,14 @@
-#actuclizar datos -> Arreglo con el de la  materia y su caliicacion mas el numero de control del alumno -> situacion y #promedio
+#actuclizar datos -> Arreglo con el id de la  materia y su caliicacion mas el numero de control del alumno -> situacion y #promedio:
+	url: consulta-tutor-byalumno, requiere nro control ttanto del profesor como del alumno
+	
+
 #Checar lo del jwt, regresarlo al loguarse y hacer una url
+	
 #encriptar clave
+	
+
 #Fanlizar semstre -> cambiar la oprutnidad de los alumnos
-#cerrar sesion -> eliminar token
+
 
 
 
@@ -12,7 +18,7 @@
       select idgrupo,grupos.nombre,cicloescolar,grupos.idcarrera,carreras.nombre,carreras.total_creditos from grupos
  		inner join carreras on carreras.idcarrera=grupos.idcarrera
 		where nrocontrol_tutor='$nrocontrol_tutor' and activo;
-   
+   cod_mat
       1.1) Total de alumnos en el grupo:
             select count(1) from alumnos where idgrupo=$idgrupo
 

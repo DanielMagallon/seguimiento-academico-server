@@ -34,9 +34,9 @@ select i in "Tutores registro" "Tutores login" "Cerrar semestre" "Alumnos Update
       "Alumnos Update")
 	    read -p "Nro control alumno: " nrocontrol_al
 	    read -p "Nro control tutor: " nrocontrol_tu
-	    read -p "Codigo mat: " codigo_mat
+	    read -p "Nombre materia: " codigo_mat
 	    read -p "Calif: " calif
-	    json="\"nrocontrol_alumno\":\"$nrocontrol_al\",\"nrocontrol_tutor\":\"$nrocontrol_tu\",\"codigo_materia\":\"$codigo_mat\",\"calificacion\":\"$calif\""
+	    json="\"nrocontrol_alumno\":\"$nrocontrol_al\",\"nrocontrol_tutor\":\"$nrocontrol_tu\",\"nombre_materia\":\"$codigo_mat\",\"calificacion\":\"$calif\""
 	    echo "{$json}" > cjson.json
 	    curl -H "Content-Type: application/json" --request POST --data @./cjson.json  "http://192.168.1.71:5800/alumno/update";echo
 	 ;;
