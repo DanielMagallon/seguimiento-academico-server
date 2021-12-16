@@ -1,6 +1,7 @@
 from src import Response,request,app,consulta_tutores,cross_origin,\
                     insert_tutor,json,consulta_pagina_tutores,session_tutor,finalizar_semestre
-
+import jinja2
+import pdfkit
 from src.config import SECRET_JWT,TIMEOUT_JWT
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
@@ -92,3 +93,40 @@ def finish():
     data = request.get_json()
     nrocontrol = data['nrocontrol_tutor']
     return Response(finalizar_semestre(nrocontrol))
+
+@app.route("/tutor/GenerarPDF",methods=["POST"])
+def GenerarPDF():
+    data = request.get_json()
+    ruta_template = "Template/template.html"
+    info = data['info']
+    print(info)
+    try:
+        ruta = "C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe"
+        config = pdfkit.configuration(wkhtmltopdf=ruta)
+        nombre_template = ruta_template.split('/')[-1]
+        ruta_template = ruta_template.replace(nombre_template, '')
+
+        env = jinja2.Environment(loader=jinja2.FileSystemLoader(ruta_template))
+
+        template = env.get_template(nombre_template)
+        print("llego aqui")
+        html = template.render(info)
+
+        # print(html)
+
+        options = {
+            'page-size': 'Letter',
+            'margin-top': '0.05in',
+            'margin-right': '0.05in',
+            'margin-bottom': '0.05in',
+            'margin-left': '0.05in',
+            'encoding': 'UTF-8',
+            "enable-local-file-access": ""
+        }
+        try:
+            pdfkit.from_string(html, 'PDF/reporte.pdf', options=options, configuration=config)
+        except Exception as e:
+            print(repr(e))
+    except Exception as e:
+        print("Paso otra cosa")
+    return Response('../PDF/reporte.pdf')

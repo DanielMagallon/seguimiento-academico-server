@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    display: block;
+    padding: 25px;
+}
+
+.encabezado {
+    width: 100%;
+    
+}
+
+.encabezado div {
+    display: inline-block;
+}
+
+.titulos {
+    float: right;
+    text-align: right;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 390px;
+}
+
+.titulos div{
+    width: 100%;
+    text-align: center;
+}
+
+/* Footer */
+
+.pie {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    display: inline-table;
+}
+
+.pie hr {
+    margin: 0 auto;
+    width: 100%;
+    border-style:solid;
+    border-color: black;
+}
+
+.pie div{
+    display: inline-flex;
+    width: 100%;
+}
+
+.nombres1 {
+    width: 50%;
+}
+
+.nombres2 {
+    float: right;
+    width: 50%;
+}
